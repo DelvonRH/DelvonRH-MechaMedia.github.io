@@ -2,7 +2,7 @@ const $ = document.querySelector.bind(document);
 
 window.onload = function()
 {
-    // this.fetch(`https://api.themoviedb.org/3/movie/%d/videos?api_key=5b373cfa6121028619e63bf3cee17a18`)
+    // this.fetch(`https://api.themoviedb.org/3/movie/550?api_key=5b373cfa6121028619e63bf3cee17a18`)
     // .then(r => r.json())
     // .then(data => {
     //     Object.keys(data.)
