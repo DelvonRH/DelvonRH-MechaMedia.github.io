@@ -1,6 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js"
-import { getFirestore, addDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js'
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js"
+import { getFirestore, addDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js'
+
+
 
 const firebaseConfig = 
 {
@@ -16,6 +18,7 @@ const firebaseConfig =
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
+
 
 window.isLoggedIn = function(){
     return auth.currentUser !== null;

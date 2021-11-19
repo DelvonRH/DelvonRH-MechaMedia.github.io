@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="signin.css">
+        <script src="main.js"></script>
+        <link rel="stylesheet" href="signup.css">
+        <script src="firebase.mjs" type="module"></script>
         <title>Mecha Media - Sign Up</title>
     </head>
     <body>
@@ -9,18 +11,18 @@
             <a id=logo href="/Final Project TV Show Review/index.html"><h2>Mecha Media</h2></a>
         </header>
         <div id="overlay">
-            <div id="signinDiv">
-                <div id="signin">
+            <div id="signupDiv">
+                <div id="signup">
                     <h1>Sign Up</h1>
                     <br>
-                    <input id="emailReg" placeholder="Email">
+                    <input type="email" id="email" placeholder="Email">
                     <br>
-                    <input type="password" id="passwordReg" placeholder="Password">
+                    <input type="password" id="password" placeholder="Password">
                     <br>
-                    <button id="registerBtn">Sign Up</button>
+                    <button id="signupBtn">Sign Up</button>
                     <br>
                     <br>
-                    <p id="loginref">Already registered? &nbsp;<a id="signupLink" href="/Final Project TV Show Review/signin.html">Sign In.</a></p>
+                    <p id="loginref">Already registered? &nbsp;<a id="signinLink" href="/Final Project TV Show Review/signin.html">Sign In.</a></p>
                 </div>
             </div>
         </div>

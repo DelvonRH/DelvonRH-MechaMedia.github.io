@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="main.js"></script>
         <link rel="stylesheet" href="signin.css">
+        <script src="firebase.mjs" type="module"></script>
         <title>Mecha Media - Sign In</title>
     </head>
     <body>
@@ -13,11 +15,11 @@
                 <div id="signin">
                     <h1>Sign In</h1>
                     <br>
-                    <input id="emailReg" placeholder="Email">
+                    <input type="email" id="emailReg" placeholder="Email">
                     <br>
                     <input type="password" id="passwordReg" placeholder="Password">
                     <br>
-                    <button id="registerBtn">Sign In</button>
+                    <button id="signinBtn">Sign In</button>
                     <br>
                     <br>
                     <p id="loginref">New to Flix? &nbsp;<a id="signupLink" href="/Final Project TV Show Review/signup.html">Sign up now.</a></p>
