@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="main.js"></script>
+        <script src="index.js"></script>
         <link rel="stylesheet" href="style.css">
         <script src="firebase.mjs" type="module"></script>
         <title>Mecha Media</title>
@@ -16,9 +16,22 @@
                     <li>TV Shows</li>
                 </ul>
             </nav>
-            <a class= signin href="/Final Project TV Show Review/signin.html"><button>Sign In</button></a>
+            <a class= button id=signinbutton href="/Final Project TV Show Review/signin.html">Sign In</a>
+            <a class= button id=signoutbutton href="#" style="display: none">Sign Out</a>
         </header>
-        <h2 id="title">Popular People</h2>
-        <div id ="img"></div>
+        <div id = main>
+            <div id="people">
+                <h2 id="title">Popular People</h2>
+                <div id ="imgPeople"></div>
+            </div>
+            <div id="movies">
+                <h2 id="title">Popular Movies</h2>
+                <div id ="imgMovie"></div>
+            </div>
+            <div id="tvshows">
+                <h2 id="title">Popular Shows</h2>
+                <div id="imgShows"></div>
+            </div>     
+        </div>
     </body>
 </html>

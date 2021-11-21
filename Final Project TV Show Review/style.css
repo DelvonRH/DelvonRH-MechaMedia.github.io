@@ -6,6 +6,7 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    color: #ddd;
 }
 
 header
@@ -67,7 +68,7 @@ header h2
     color: white;
 }
 
-button 
+.button
 {
     padding: 9px 25px;
     border: none;
@@ -78,7 +79,7 @@ button
     transition: all 0.3s ease 0s
 }
 
-button:hover
+.button:hover
 {
     background-color: rgba(255, 0, 0, 0.8);
 }
@@ -88,6 +89,32 @@ body
     background-color: #24252A;
 }
 
+.person
+{
+    margin-left: 60px;
+    padding: 5px 15px;
+    display: inline-block;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.movie
+{
+    margin-left: 60px;
+    padding: 5px 15px;
+    text-align: center;
+    display: inline-block;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.shows
+{
+    margin-left: 60px;
+    padding: 5px 15px;
+    text-align: center;
+    display: inline-block;
+    font-family: 'Varela Round', sans-serif;
+}
+
 #title
 {
     color: white;
@@ -95,4 +122,16 @@ body
     font-family: 'Varela Round', sans-serif;
     margin-left: 30px;
     text-decoration: underline;
+}
+
+#tag{
+    background: white;
+    color: black;
+    overflow: hidden;
+    padding: 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    text-align: center;
 }
