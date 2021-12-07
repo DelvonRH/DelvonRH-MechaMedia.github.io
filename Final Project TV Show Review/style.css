@@ -87,6 +87,7 @@ header h2
 body
 {
     background-color: #24252A;
+    margin-bottom: 20px;
 }
 
 .person
@@ -115,6 +116,21 @@ body
     font-family: 'Varela Round', sans-serif;
 }
 
+.person img
+{
+    border-radius: 13px;
+}
+
+.movie img
+{
+    border-radius: 13px;
+}
+
+.shows img
+{
+    border-radius: 13px;
+}
+
 #title
 {
     color: white;
@@ -124,9 +140,83 @@ body
     text-decoration: underline;
 }
 
+#comments 
+{
+    width: 90%;
+    border: solid 2px white;
+    background-color: rgba(0, 0, 0, 0.25);
+    margin: auto;
+}
+
+.comment 
+{
+    border: solid 2px white;
+    margin: 15px;
+    padding: 15px;
+    color: white;
+    position: relative;
+}
+
+.currentUserComment
+{
+    background-color: red;
+}
+
+.Trash
+{
+    color: white;
+    cursor: pointer;
+    position: absolute;
+    border: solid 1px grey;
+    padding: 5px;
+    border-radius: 5px;
+    right: 8em;
+    top: 1.73em;
+}
+
+#newComment
+{
+    margin-left: 10px;
+    background-color: #24252A;
+    caret-color: white;
+    color: white;
+    width: 50%;
+    margin-top: 10px;
+    resize: none;
+}
+
+
+#addCommentBtn
+{
+    padding: 9px 25px;
+    border: none;
+    background-color: #d40000;
+    color: white;
+    cursor: pointer;
+    font-family: 'Varela Round', sans-serif;
+    transition: all 0.3s ease 0s;
+    vertical-align: top;
+    margin-top: 13px;
+    margin-left: 5px;
+    height: 40px;
+    border-radius: 10px;
+}
+
+#addCommentDiv
+{
+    background-color: black;
+}
+
+#addCommentDiv h2
+{
+    margin-left: 10px;
+    margin-top: 10px;
+    font-family: 'Varela Round', sans-serif;
+    text-decoration: underline;
+}
+
 #tag{
-    background: white;
-    color: black;
+    color: white;
     overflow: hidden;
     padding: 10px 0;
     white-space: nowrap;
@@ -134,4 +224,5 @@ body
     text-overflow: ellipsis;
     max-width: 200px;
     text-align: center;
+    text-decoration: underline;
 }

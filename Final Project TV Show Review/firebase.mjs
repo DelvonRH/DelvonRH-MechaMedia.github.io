@@ -1,6 +1,6 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.4.1/firebase-auth.js"
-import { getFirestore, addDoc, getDocs, collection } from 'https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js'
+import { getFirestore, addDoc, getDocs, collection, serverTimestamp, query, orderBy, deleteDoc, doc, updateDoc} from 'https://www.gstatic.com/firebasejs/9.4.1/firebase-firestore.js'
 
 
 
@@ -18,6 +18,7 @@ const firebaseConfig =
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore(app);
+
 
 
 window.isLoggedIn = function(){
@@ -42,17 +43,26 @@ window.onLogin = function( f ){
     });
 }
 
-
 //////////////////////////////////////////////
 // exposed functionality for db
 window.addComment = function(comment){
-    return addDoc( collection(db, "comments"), {comment} );
+    return addDoc( collection(db, "comment"), {Message:comment, email:auth.currentUser.email, TimeStamp: serverTimestamp()} );
+}
+
+window.updateDoc = function()
+{
+    //to do
+}
+
+window.deleteComment = function(id)
+{
+    deleteDoc(doc(db, "comment", id));
 }
 
 window.forEachComment = async function( f ){
-    var docs = await getDocs( collection(db, "comments") );
+    var docs = await getDocs( query(collection(db, "comment"), orderBy("TimeStamp","desc")));
     console.log(docs);
-    docs.forEach( doc => f(doc.data()) );
+    docs.forEach( doc => f(doc.data(), doc.id) );
 }
 
 

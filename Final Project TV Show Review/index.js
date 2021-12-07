@@ -20,6 +20,8 @@ window.onload = function()
             //user just logged in
             $("#signinbutton").style.display ="none";
             $("#signoutbutton").style.display ="block";
+            email = user.email;
+            forEachComment( createComment );
         }
         else
         {
@@ -82,9 +84,20 @@ window.onload = function()
        });
     });
 
+
     $("#signoutbutton").onclick = function()
     {
         logout();
+    }
+
+    $('#addCommentBtn').onclick = function()
+    {
+        addComment( $('#newComment').value )
+        .then( (id) => {
+            createComment({Message: $('#newComment').value}, id);
+            $('#newComment').value = '';
+        })
+        .catch( err => $('.error').innerText = err.message )
     }
 }
 
@@ -94,7 +107,6 @@ function addPersonCard(person)
    personDiv.setAttribute('class', 'person');
    personDiv.innerHTML =  `<img src= "${MOVIE_DB_IMAGE_ENDPOINT+ person.profile_path}" data-people-id=${person.id}>
    <div id = tag>${person.name}</div>`;
-   //personDiv.onclick = function
    return personDiv;
 }
 
@@ -104,7 +116,6 @@ function addMovieCard(movie)
    movieDiv.setAttribute('class', 'movie');
    movieDiv.innerHTML =  `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + movie.poster_path}" data-movie-id=${movie.id}>
    <div id = tag>${movie.title}</div>`;
-   //personDiv.onclick = function
    return movieDiv;
 }
 
@@ -114,7 +125,6 @@ function addTvCard(show)
    showDiv.setAttribute('class', 'shows');
    showDiv.innerHTML =  `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + show.poster_path}" data-movie-id=${show.id}>
    <div id = tag>${show.name}</div>`;
-   //personDiv.onclick = function
    return showDiv;
 }
 
@@ -147,4 +157,39 @@ function createPoplarShowContainer(show)
         if(poster.poster_path)
             $('#imgShows').appendChild(addTvCard(poster));
     }
+}
+
+function createComment( commentDoc, id)
+{
+    var div = document.createElement('div');
+    var timestamp;
+    if(commentDoc.TimeStamp)
+    {
+        timestamp = commentDoc.TimeStamp.toDate();
+    }
+    else
+    {
+        timestamp = new Date();
+        div.classList.add("currentUserComment");
+    }
+
+    div.innerHTML = `${commentDoc.Message} <div class = "timestamp" style="text-align: right"> ${timestamp.toDateString()} </div> `;
+    
+    $('#comments').appendChild(div);
+    if(email === commentDoc.email)
+    {
+        div.classList.add("currentUserComment");
+        var trashIcon = div.appendChild(document.createElement("span"));
+        trashIcon.innerText = "X";
+        trashIcon.className = "Trash";
+        trashIcon.onclick = function()
+        {
+            if(confirm("Are you sure you want to delete this comment?"))
+            {
+                deleteComment(id);
+                div.remove();
+            }
+        }
+    }
+    div.classList.add('comment');
 }
