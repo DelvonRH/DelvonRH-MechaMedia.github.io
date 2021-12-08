@@ -4,55 +4,48 @@ const MOVIE_DB_API = '5b373cfa6121028619e63bf3cee17a18';
 const MOVIE_DB_ENDPOINT = 'https://api.themoviedb.org';
 const MOVIE_DB_IMAGE_ENDPOINT = 'https://image.tmdb.org/t/p/w200';
 
-window.onload = function()
-{
+window.onload = function () {
     this.fetch(`${MOVIE_DB_ENDPOINT}/3/person/popular?api_key=${MOVIE_DB_API}&language=en-US&page=1`)
-    .then(r => r.json())
-    .then(data => {
-        const pop = data.results;
-        const popList = createPoplarPeopleContainer(pop)
-        console.log(`https://api.themoviedb.org/3/tv/popular?api_key=${MOVIE_DB_API}&language=en-US&page=1`)
-    });
+        .then(r => r.json())
+        .then(data => {
+            const pop = data.results;
+            const popList = createPoplarPeopleContainer(pop)
+            console.log(`https://api.themoviedb.org/3/tv/popular?api_key=${MOVIE_DB_API}&language=en-US&page=1`)
+        });
 
-    onLogin( user => {
-        if(user)
-        {
+    onLogin(user => {
+        if (user) {
             //user just logged in
-            $("#signinbutton").style.display ="none";
-            $("#signoutbutton").style.display ="block";
+            $("#signinbutton").style.display = "none";
+            $("#signoutbutton").style.display = "block";
             email = user.email;
-            forEachComment( createComment );
+            forEachComment(createComment);
         }
-        else
-        {
-            $("#signinbutton").style.display ="block";
-            $("#signoutbutton").style.display ="none";
+        else {
+            $("#signinbutton").style.display = "block";
+            $("#signoutbutton").style.display = "none";
         }
     });
 
     $('#movies').style.display = "none";
-    $("#tvshows").style.display ="none";
+    $("#tvshows").style.display = "none";
 
     let ul = document.querySelector('ul');
     let li = document.querySelectorAll('li');
 
     li.forEach(eL => {
-       eL.addEventListener('click', function()
-       {
-           ul.querySelector('.active').classList.remove('active');
+        eL.addEventListener('click', function () {
+            ul.querySelector('.active').classList.remove('active');
 
-           eL.classList.add('active');
+            eL.classList.add('active');
 
-           if(this.innerText === 'Home')
-            {
+            if (this.innerText === 'Home') {
                 $('#movies').style.display = "none";
                 $("#people").style.display = "block";
-                $("#tvshows").style.display ="none";
+                $("#tvshows").style.display = "none";
             }
-            else
-            {
-                if(this.innerText === "TV Shows")
-                {
+            else {
+                if (this.innerText === "TV Shows") {
                     $("#tvshows").style.display = "block";
                     $("#people").style.display = "none";
                     $('#movies').style.display = "none";
@@ -60,132 +53,113 @@ window.onload = function()
                     fetch(`https://api.themoviedb.org/3/tv/popular?api_key=${MOVIE_DB_API}&language=en-US&page=1`)
                         .then(r => r.json())
                         .then(data => {
-                        const pop = data.results;
-                        const popList = createPoplarShowContainer(pop)
+                            const pop = data.results;
+                            const popList = createPoplarShowContainer(pop)
                         });
                 }
-                else
-                {
-                    if(this.innerText === 'Movies')
-                    {
+                else {
+                    if (this.innerText === 'Movies') {
                         $('#movies').style.display = "block";
                         $("#people").style.display = "none";
-                        $("#tvshows").style.display ="none";
+                        $("#tvshows").style.display = "none";
 
                         fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${MOVIE_DB_API}&language=en-US&page=1`)
-                        .then(r => r.json())
-                        .then(data => {
-                        const pop = data.results;
-                        const popList = createPoplarMovieContainer(pop)
-                        });
+                            .then(r => r.json())
+                            .then(data => {
+                                const pop = data.results;
+                                const popList = createPoplarMovieContainer(pop)
+                            });
                     }
                 }
             }
-       });
+        });
     });
 
 
-    $("#signoutbutton").onclick = function()
-    {
+    $("#signoutbutton").onclick = function () {
         logout();
     }
 
-    $('#addCommentBtn').onclick = function()
-    {
-        addComment( $('#newComment').value )
-        .then( (id) => {
-            createComment({Message: $('#newComment').value}, id);
-            $('#newComment').value = '';
-        })
-        .catch( err => $('.error').innerText = err.message )
+    $('#addCommentBtn').onclick = function () {
+        addComment($('#newComment').value)
+            .then((id) => {
+                createComment({ Message: $('#newComment').value }, id);
+                $('#newComment').value = '';
+            })
+            .catch(err => $('.error').innerText = err.message)
     }
 }
 
-function addPersonCard(person)
-{
-   var personDiv = document.createElement('div');
-   personDiv.setAttribute('class', 'person');
-   personDiv.innerHTML =  `<img src= "${MOVIE_DB_IMAGE_ENDPOINT+ person.profile_path}" data-people-id=${person.id}>
+function addPersonCard(person) {
+    var personDiv = document.createElement('div');
+    personDiv.setAttribute('class', 'person');
+    personDiv.innerHTML = `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + person.profile_path}" data-people-id=${person.id}>
    <div id = tag>${person.name}</div>`;
-   return personDiv;
+    return personDiv;
 }
 
-function addMovieCard(movie)
-{
-   var movieDiv = document.createElement('div');
-   movieDiv.setAttribute('class', 'movie');
-   movieDiv.innerHTML =  `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + movie.poster_path}" data-movie-id=${movie.id}>
+function addMovieCard(movie) {
+    var movieDiv = document.createElement('div');
+    movieDiv.setAttribute('class', 'movie');
+    movieDiv.innerHTML = `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + movie.poster_path}" data-movie-id=${movie.id}>
    <div id = tag>${movie.title}</div>`;
-   return movieDiv;
+    return movieDiv;
 }
 
-function addTvCard(show)
-{
-   var showDiv = document.createElement('div');
-   showDiv.setAttribute('class', 'shows');
-   showDiv.innerHTML =  `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + show.poster_path}" data-movie-id=${show.id}>
+function addTvCard(show) {
+    var showDiv = document.createElement('div');
+    showDiv.setAttribute('class', 'shows');
+    showDiv.innerHTML = `<img src= "${MOVIE_DB_IMAGE_ENDPOINT + show.poster_path}" data-movie-id=${show.id}>
    <div id = tag>${show.name}</div>`;
-   return showDiv;
+    return showDiv;
 }
 
 
-function createPoplarPeopleContainer(people) 
-{
+function createPoplarPeopleContainer(people) {
     $('#imgPeople').innerHTML = '';
-    for(var person of people)
-    {
-        if(person.profile_path)
+    for (var person of people) {
+        if (person.profile_path)
             $('#imgPeople').appendChild(addPersonCard(person));
     }
 }
 
-function createPoplarMovieContainer(movie) 
-{
+function createPoplarMovieContainer(movie) {
     $('#imgMovie').innerHTML = '';
-    for(var poster of movie)
-    {
-        if(poster.poster_path)
+    for (var poster of movie) {
+        if (poster.poster_path)
             $('#imgMovie').appendChild(addMovieCard(poster));
     }
 }
 
-function createPoplarShowContainer(show) 
-{
+function createPoplarShowContainer(show) {
     $('#imgShows').innerHTML = '';
-    for(var poster of show)
-    {
-        if(poster.poster_path)
+    for (var poster of show) {
+        if (poster.poster_path)
             $('#imgShows').appendChild(addTvCard(poster));
     }
 }
 
-function createComment( commentDoc, id)
-{
+function createComment(commentDoc, id) {
     var div = document.createElement('div');
     var timestamp;
-    if(commentDoc.TimeStamp)
-    {
+    if (commentDoc.TimeStamp) {
         timestamp = commentDoc.TimeStamp.toDate();
     }
-    else
-    {
+    else {
         timestamp = new Date();
         div.classList.add("currentUserComment");
     }
 
     div.innerHTML = `${commentDoc.Message} <div class = "timestamp" style="text-align: right"> ${timestamp.toDateString()} </div> `;
-    
+
     $('#comments').appendChild(div);
-    if(email === commentDoc.email)
-    {
+    if (email === commentDoc.email) {
         div.classList.add("currentUserComment");
         var trashIcon = div.appendChild(document.createElement("span"));
         trashIcon.innerText = "X";
         trashIcon.className = "Trash";
-        trashIcon.onclick = function()
-        {
-            if(confirm("Are you sure you want to delete this comment?"))
-            {
+        trashIcon.onclick = function () {
+            if (confirm("Are you sure you want to delete this comment?")) {
                 deleteComment(id);
                 div.remove();
             }
