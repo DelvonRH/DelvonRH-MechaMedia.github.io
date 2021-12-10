@@ -49,9 +49,11 @@ window.addComment = function(comment){
     return addDoc( collection(db, "comment"), {Message:comment, email:auth.currentUser.email, TimeStamp: serverTimestamp()} );
 }
 
-window.updateDoc = function()
+window.updateComment = function(id, Message)
 {
-    //to do
+     updateDoc(doc(db, "comment", id),{
+         Message
+     });
 }
 
 window.deleteComment = function(id)

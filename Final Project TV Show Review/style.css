@@ -151,9 +151,9 @@ body
 .comment 
 {
     border: solid 2px white;
+    background-color: rgba(0, 0, 0, 0.25);
     margin: 15px;
     padding: 15px;
-    color: white;
     position: relative;
 }
 
@@ -167,11 +167,23 @@ body
     color: white;
     cursor: pointer;
     position: absolute;
-    border: solid 1px grey;
+    border: whitesmoke solid 1px;
     padding: 5px;
     border-radius: 5px;
     right: 8em;
     top: 1.73em;
+}
+
+.Edit
+{
+    color: white;
+    cursor: pointer;
+    border: whitesmoke solid 1px;
+    position: absolute;
+    padding: 5px;
+    border-radius: 5px;
+    top: 1.73em;
+    right: 10em;
 }
 
 #newComment
@@ -200,11 +212,6 @@ body
     margin-left: 5px;
     height: 40px;
     border-radius: 10px;
-}
-
-#addCommentDiv
-{
-    background-color: black;
 }
 
 #addCommentDiv h2

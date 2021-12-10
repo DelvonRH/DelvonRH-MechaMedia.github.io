@@ -141,6 +141,7 @@ function createPoplarShowContainer(show) {
 
 function createComment(commentDoc, id) {
     var div = document.createElement('div');
+    var text = div.appendChild(document.createElement("span"));
     var timestamp;
     if (commentDoc.TimeStamp) {
         timestamp = commentDoc.TimeStamp.toDate();
@@ -150,14 +151,25 @@ function createComment(commentDoc, id) {
         div.classList.add("currentUserComment");
     }
 
-    div.innerHTML = `${commentDoc.Message} <div class = "timestamp" style="text-align: right"> ${timestamp.toDateString()} </div> `;
+    text.innerHTML = `${commentDoc.Message} <div class = "timestamp" style="text-align: right"> ${timestamp.toDateString()} </div> `;
 
     $('#comments').appendChild(div);
     if (email === commentDoc.email) {
         div.classList.add("currentUserComment");
         var trashIcon = div.appendChild(document.createElement("span"));
-        trashIcon.innerText = "X";
+        var penIcon = div.appendChild(document.createElement("span"));
+        penIcon.innerHTML = `<i class="fas fa-edit"></i>`;
+        penIcon.className = "Edit";
+        trashIcon.innerHTML = `<i class="fas fa-trash-alt"></i>`;
         trashIcon.className = "Trash";
+        penIcon.onclick = function () {
+            var message = prompt("'Edit?");
+            if (message) 
+            {
+                updateComment(id, message);
+                text.innerHTML = `${message} <div class = "timestamp" style="text-align: right"> ${timestamp.toDateString()} </div> `;
+            }
+        }
         trashIcon.onclick = function () {
             if (confirm("Are you sure you want to delete this comment?")) {
                 deleteComment(id);
